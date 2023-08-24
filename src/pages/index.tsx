@@ -1,48 +1,6 @@
 import Head from "next/head";
 
-import { Provider, shallowEqual, useDispatch, useSelector } from "react-redux";
-
-import { Box, Button, Text } from "@mantine/core";
-import {
-  AddToFirstButton,
-  AddToSecondButton,
-  FirstValue,
-  SecondValue,
-} from "~/components";
-// 2: provide the store to react
-import { store } from "~/store/store";
-import { doNothing } from "~/store/store";
-import { type RootState } from "~/store/store";
-
 export default function Home() {
-  const DoNothingButton = () => {
-    const dispatch = useDispatch();
-
-    return (
-      <Button
-        size="xl"
-        onClick={() => {
-          dispatch(doNothing());
-        }}
-      >
-        Do Nothing
-      </Button>
-    );
-  };
-
-  const NumbersValue = () => {
-    const numbers = useSelector(
-      (state: RootState) => state.numbers,
-      shallowEqual,
-    );
-
-    return (
-      <Text size="xl" p={5}>
-        Second Value: {numbers.join(", ")}
-      </Text>
-    );
-  };
-
   return (
     <>
       <Head>
@@ -51,27 +9,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-slate-800">
-        <div>
-          <Provider store={store}>
-            <Box p={10}>
-              <Box sx={{ display: "flex" }}>
-                <AddToFirstButton />
-                <FirstValue />
-              </Box>
-
-              <Box mt={10} sx={{ display: "flex" }}>
-                <DoNothingButton />
-              </Box>
-              <Box mt={10} sx={{ display: "flex" }}>
-                <AddToSecondButton />
-                <SecondValue />
-              </Box>
-              <Box mt={10} sx={{ display: "flex" }}>
-                <NumbersValue />
-              </Box>
-            </Box>
-          </Provider>
-        </div>
+        <div>Hello world</div>
       </main>
     </>
   );
