@@ -1,15 +1,31 @@
 import Head from "next/head";
-import { Box, Button, Text } from "@mantine/core";
-export default function Home() {
-  const AddToFirstButton = () => {
-    return <Button size="xl">Add to First</Button>;
-  };
 
-  const FirstValue = () => {
+import { Provider, useDispatch } from "react-redux";
+
+import { Box, Button } from "@mantine/core";
+import {
+  AddToFirstButton,
+  AddToSecondButton,
+  FirstValue,
+  SecondValue,
+} from "~/components";
+// 2: provide the store to react
+import { store } from "~/store/store";
+import { doNothing } from "~/store/store";
+
+export default function Home() {
+  const DoNothingButton = () => {
+    const dispatch = useDispatch();
+
     return (
-      <Text size="xl" p={5}>
-        First Value:{" "}
-      </Text>
+      <Button
+        size="xl"
+        onClick={() => {
+          dispatch(doNothing());
+        }}
+      >
+        Do Nothing
+      </Button>
     );
   };
 
@@ -22,10 +38,22 @@ export default function Home() {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-slate-800">
         <div>
-          <Box p={10} sx={{ display: "flex" }}>
-            <AddToFirstButton />
-            <FirstValue />
-          </Box>
+          <Provider store={store}>
+            <Box p={10}>
+              <Box sx={{ display: "flex" }}>
+                <AddToFirstButton />
+                <FirstValue />
+              </Box>
+
+              <Box mt={10} sx={{ display: "flex" }}>
+                <DoNothingButton />
+              </Box>
+              <Box mt={10} sx={{ display: "flex" }}>
+                <AddToSecondButton />
+                <SecondValue />
+              </Box>
+            </Box>
+          </Provider>
         </div>
       </main>
     </>
