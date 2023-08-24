@@ -1,8 +1,8 @@
 import Head from "next/head";
 
-import { Provider, useDispatch } from "react-redux";
+import { Provider, shallowEqual, useDispatch, useSelector } from "react-redux";
 
-import { Box, Button } from "@mantine/core";
+import { Box, Button, Text } from "@mantine/core";
 import {
   AddToFirstButton,
   AddToSecondButton,
@@ -12,6 +12,7 @@ import {
 // 2: provide the store to react
 import { store } from "~/store/store";
 import { doNothing } from "~/store/store";
+import { type RootState } from "~/store/store";
 
 export default function Home() {
   const DoNothingButton = () => {
@@ -26,6 +27,19 @@ export default function Home() {
       >
         Do Nothing
       </Button>
+    );
+  };
+
+  const NumbersValue = () => {
+    const numbers = useSelector(
+      (state: RootState) => state.numbers,
+      shallowEqual,
+    );
+
+    return (
+      <Text size="xl" p={5}>
+        Second Value: {numbers.join(", ")}
+      </Text>
     );
   };
 
@@ -51,6 +65,9 @@ export default function Home() {
               <Box mt={10} sx={{ display: "flex" }}>
                 <AddToSecondButton />
                 <SecondValue />
+              </Box>
+              <Box mt={10} sx={{ display: "flex" }}>
+                <NumbersValue />
               </Box>
             </Box>
           </Provider>
