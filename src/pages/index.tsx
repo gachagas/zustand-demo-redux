@@ -1,6 +1,70 @@
 import Head from "next/head";
 
+import { Box, Button, Text } from "@mantine/core";
+import { shallow } from "zustand/shallow";
+import { useStore } from "~/store";
+
 export default function Home() {
+  const DoNothingButton = () => {
+    const doNothing = useStore(state => state.doNothing);
+
+    return (
+      <Button size="xl" onClick={() => doNothing()}>
+        Do Nothing
+      </Button>
+    );
+  };
+
+  const AddToFirstButton = () => {
+    const doNothing = useStore(state => state.addToFirst);
+
+    return (
+      <Button size="xl" onClick={() => doNothing()}>
+        Add to First
+      </Button>
+    );
+  };
+
+  const AddToSecondButton = () => {
+    const doNothing = useStore(state => state.addToSecond);
+
+    return (
+      <Button size="xl" onClick={() => doNothing()}>
+        Add to Second
+      </Button>
+    );
+  };
+
+  const FirstValue = () => {
+    const { firstNumber } = useStore();
+
+    return (
+      <Text size="xl" p={5}>
+        First Value: {firstNumber}
+      </Text>
+    );
+  };
+
+  const SecondValue = () => {
+    const secondNumber = useStore(state => state.secondNumber);
+
+    return (
+      <Text size="xl" p={5}>
+        First Value: {secondNumber}
+      </Text>
+    );
+  };
+
+  const NumbersValue = () => {
+    const numbers = useStore(state => state.numbers, shallow);
+
+    return (
+      <Text size="xl" p={5}>
+        First Value: {numbers}
+      </Text>
+    );
+  };
+
   return (
     <>
       <Head>
@@ -9,7 +73,25 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-slate-800">
-        <div>Hello world</div>
+        <div>
+          <Box p={10}>
+            <Box sx={{ display: "flex" }}>
+              <AddToFirstButton />
+              <FirstValue />
+            </Box>
+
+            <Box mt={10} sx={{ display: "flex" }}>
+              <DoNothingButton />
+            </Box>
+            <Box mt={10} sx={{ display: "flex" }}>
+              <AddToSecondButton />
+              <SecondValue />
+            </Box>
+            <Box mt={10} sx={{ display: "flex" }}>
+              <NumbersValue />
+            </Box>
+          </Box>
+        </div>
       </main>
     </>
   );
